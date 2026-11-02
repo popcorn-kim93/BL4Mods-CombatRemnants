@@ -1,0 +1,20 @@
+# This public repository contains documentation and version metadata only.
+*.zip
+*.dll
+*.pdb
+*.py
+*.pyc
+*.cpp
+*.h
+__pycache__/
+sdk_mods/
+mods/
+native/
+research/
+logs/
+reports/
+backups/
+dist/
+p4env
+.env
+.env.*
