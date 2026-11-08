@@ -1,68 +1,49 @@
-# Install and use Combat Remnants v0.11.0
+# Combat Remnants 0.14.4 installation and usage
 
-## Requirements
+## Install or update
 
-- Borderlands 4 on Windows x64; see [tested build and compatibility](COMPATIBILITY.md).
-- A working [Borderlands 4 Python SDK installation](https://bl-sdk.github.io/oak2-mod-db/), including its standard mod menu and `mods_base` support.
-
-The SDK is a separate prerequisite and is not bundled. This alpha is distributed for manual installation; a Vortex installer has not been qualified.
-
-## Install
-
-1. Close Borderlands 4. The native library remains loaded until the game exits, so replacing files requires a restart.
-2. Download **CombatRemnants-0.11.0.zip** from the [v0.11.0 release](https://github.com/popcorn-kim93/BL4Mods-CombatRemnants/releases/tag/v0.11.0). Do not use GitHub's **Source code** archives.
-3. If upgrading a development build, move the old `sdk_mods/bl4_persistent_effects` folder to a backup outside `sdk_mods`, preserving its reports. If the older separate `bl4_persistence_probe` exists, move it outside `sdk_mods` as well; diagnostics are now integrated. If a mod manager owns those files, undeploy that copy through the manager first.
-4. Extract the ZIP and copy its **bl4_persistent_effects** folder into the game's **sdk_mods** folder. The final path must be:
-
-   ```text
-   Borderlands 4/sdk_mods/bl4_persistent_effects/__init__.py
-   Borderlands 4/sdk_mods/bl4_persistent_effects/_native/BL4RemovalTrace-abi9.dll
-   ```
-
-   Do not add an extra `CombatRemnants-0.11.0` folder between `sdk_mods` and `bl4_persistent_effects`. The root Markdown documents and manifest are for reference; they need not be copied into the game.
-5. Launch the game, open the SDK mod menu and enable **BL4 Persistent Combat Effects (Experimental)**. This legacy menu label and internal folder name are retained in this release. They refer to Combat Remnants, not an additional mod.
-
-## Start before combat
-
-Load a character into the world. Open the SDK console using the key configured by the SDK (normally `~`; pressing it twice expands the console), then enter:
+1. Install the [Borderlands 4 Python SDK](https://bl-sdk.github.io/oak2-mod-db/) for Windows x64. Check [compatibility](COMPATIBILITY.md).
+2. Exit the game. Updating the native DLL requires a new game process.
+3. Download **CombatRemnants-0.14.4.zip** from the [release](https://github.com/popcorn-kim93/BL4Mods-CombatRemnants/releases/tag/v0.14.4), not the Source code archives.
+4. Back up the old `sdk_mods/bl4_persistent_effects` folder outside `sdk_mods`, then replace it. Move any legacy separate `bl4_persistence_probe` folder outside too. Preserve `sdk_mods/settings/bl4_persistent_effects.json`. Undeploy mod-manager-owned files through that manager first.
+5. Copy the ZIP's `bl4_persistent_effects` folder into the game's `sdk_mods` folder.
 
 ```text
-bl4_corpses_on --max-corpses 50
+Borderlands 4/sdk_mods/bl4_persistent_effects/__init__.py
+Borderlands 4/sdk_mods/bl4_persistent_effects/_native/BL4RemovalTrace-abi11.dll
 ```
 
-One corpse and its linked severed parts form one group. Fifty is the default setting, not a measured performance guarantee. The mod protects newly observed eligible enemies; it cannot recover bodies that disappeared before it started.
+6. Enable **BL4 Persistent Combat Effects (Experimental)** in the SDK menu. Retention starts automatically when the player is ready.
 
-The count is a maximum, not a spawn amount. You must kill enough eligible enemies to approach it, and world cleanup exceptions can still remove objects.
+Top-level documents are not installed into the game. This guide covers manual installation; Vortex deployment has not been separately qualified.
 
-To change the active limit, run the command again with the desired count, for example:
+## Options
 
-```text
-bl4_corpses_on --max-corpses 100
-```
+- Maximum retained corpses: default 50, range 0–500. Each corpse and its linked parts form one group. The oldest group is released when the cap is exceeded.
+- Boss retention (`보스 시체 유지`): on by default. Turning it off excludes verified Boss. rank tags and linked parts before elemental policy.
+- Elemental death (`원소 사망 처리`): keep indefinitely (`안 없어지게`), dissolve slowly (`천천히 사라지게`, default), or game default (`게임 기본 동작`).
+- Elemental dissolve duration: default 30 seconds, range 1–600; applies to slow dissolve mode.
 
-The menu's **Maximum retained corpses** option also changes the active limit. Starting without `--max-corpses` uses that menu setting. The menu provides 0–500; 0 releases all groups. Use `bl4_corpses_off` to stop the controller and reporting completely.
+Saved settings take precedence. Ordinary deaths and linked parts remain under count retention. The cap does not spawn bodies. Already-dead NPCs and existing parts are not collected retroactively. World teardown, forced destruction and out-of-world cleanup remain available. Battlefield state is not saved across sessions.
 
-`--max-limbs` and `--multiplier` are retired and ignored. Separate `bl4_effects_on` activation is unnecessary; it aliases the same controller. Read-only diagnostic capture commands are not required for normal use.
-
-## Check and stop
+## Optional commands
 
 ```text
 bl4_corpses_status
 bl4_corpses_off
+bl4_corpses_on --max-corpses 100
 ```
 
-`status` prints and saves the current state. `off` removes retained linked parts, returns corpses to normal game cleanup and finishes the session report. Let cleanup complete before starting another session. If `release_pending` is true, leave the game running briefly and check status again.
+No on command is required for automatic use. `off` stops retention and releases groups; `on` starts again after pending release completes. Disabling the mod also disables automatic start. You do not need off before game exit.
 
-There is no automatic timed stop. Start retention again when needed in a new game session. To uninstall, close the game and move `bl4_persistent_effects` out of `sdk_mods`; leave other SDK files and mods in place.
+A zero cap releases groups; use off to stop control and recording. The old `--max-limbs` and `--multiplier` arguments are ignored. `bl4_effects_on` is an alias.
 
 ## Reporting a problem
 
-The mod writes session files automatically under:
+Include your game build, options, enemy/death type, visible result and session logs in [Issues](https://github.com/popcorn-kim93/BL4Mods-CombatRemnants/issues).
 
 ```text
 Borderlands 4/sdk_mods/bl4_persistent_effects/reports/
 ```
 
-After reproducing the issue, note what was visible **before** running `bl4_corpses_off`, then stop. Include the matching `retention-*.json` and `retention-*.native.jsonl`, the start command, game build, enemy/death type and visible result in a [GitHub issue](https://github.com/popcorn-kim93/BL4Mods-CombatRemnants/issues). Review reports before sharing: runtime diagnostics may include local module paths. Detailed material tracing is off by default and is not needed for ordinary play.
-
-If the command is unknown, check that the SDK loaded the mod and the menu entry is enabled. If it says to enter the game, load a character first. If native build validation fails, that game build is unsupported by this package; attach the error message instead of bypassing its checks.
+Startup: `startup-*.jsonl`. Exit: `retention-*.native.shutdown.jsonl` and `*.native.shutdown.native.log`. Object events: `retention-*.native.jsonl`. Review local paths before posting publicly. A code-fingerprint mismatch means this package does not support the installed build; report it instead of bypassing the check.

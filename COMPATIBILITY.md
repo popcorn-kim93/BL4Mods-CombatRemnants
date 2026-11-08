@@ -1,45 +1,33 @@
-# Compatibility and validation — v0.11.0 Alpha
+# Compatibility and validation — v0.14.4 Alpha
 
 ## Tested environment
 
-| Item | Observed value |
-| --- | --- |
-| Game | Borderlands 4, Steam, Windows x64 |
-| In-game test date | 2026-11-02 (Korea Standard Time) |
-| unrealsdk | v3.2.0, revision b1852aa4 |
-| pyunrealsdk | v1.10.0, revision c72c5558 |
-| Native module | BL4RemovalTrace-abi9.dll |
+Borderlands 4 Steam, Windows x64. Latest menu-exit test: 2026-11-09 (Korea Standard Time). Native module: `BL4RemovalTrace-abi11.dll`; shutdown API 2.
 
-These SDK versions describe the test environment, not a compatibility guarantee for all newer or older versions.
-
-The tested executable's SHA-256 is:
+Tested executable SHA256:
 
 ```text
 ba75f7c2874b16efb5536a5c0cc28918a03efd3e55d790d2e4db57de0c3a353a
 ```
 
-Its PE timestamp is `4086165580` and image size is `652288000` bytes. The mod validates executable layout and selected code fingerprints before enabling native protection. The SHA-256 above identifies the tested file; the runtime check is not a whole-file hash comparison. Updates to the game may require an updated mod.
+PE timestamp: `4086165580`; image size: `652288000` bytes. Native protection validates PE layout and selected function fingerprints before starting, including the two exit routes. It does not compute a whole-file hash at runtime. Game patches may require an updated mod.
 
-## What was observed
+## Evidence for this release
 
-The latest in-game test lasted about 213 seconds with `bl4_corpses_on --max-corpses 5`:
+- 25 local checks passed, covering retention, boss/elemental policies, bounded queues, startup, shutdown and native detours.
+- The Release build native DLL matches the game-tested v0.14.3 DLL byte for byte. v0.14.4 changes the version and default elemental option; its 29 runtime files passed local and package checks.
+- Automatic start, timer dispatch and exit cleanup ran on the same game thread.
+- Menu exit entered `gbx_delayed_game_exit`; protection stopped, the Windows timer was removed, and the three SDK callback groups had zero remaining hooks with no detach errors.
+- Both recording workers finished. Mod cleanup took about 4.33ms. The original exit state machine advanced through 0, 2, 3 and 4. Steam recorded exit code 0 about nine seconds later.
+- The final summary had 42 tracked corpses and 382 tracked parts. These are bookkeeping counts, not proof that every object was visible.
 
-- 76 corpses were registered; 71 received count-based cleanup requests.
-- All 457 observed severed parts were linked to an owner.
-- Five corpses and eight linked parts remained immediately before stop; the final corpse queue matched the latest five deaths.
-- No protected corpse destruction was recorded. Twenty-three part removals followed the known out-of-world cleanup call path, which remains permitted.
-- The tester reported that bodies and parts generally stayed together on screen.
-- No capture errors or dropped events were recorded, and all native hooks were restored on stop.
-
-The final five corpses were only approximately 10–19 seconds old. This test establishes the observed grouping and count policy, not long-idle persistence or complete coverage of all visual effects. Counts are runtime records and are not a substitute for on-screen observation.
-
-The public package preserves the 19 runtime files from the tested build byte for byte. Local grouping/native checks and package-integrity checks are separate from in-game qualification.
+This confirms one automatic-start/combat/menu-exit session. It does not verify every exit route, save-file integrity, long sessions, every enemy/elemental combination or multiplayer. Earlier gameplay observations supported corpse and linked-part retention; coverage remains experimental.
 
 ## Limits
 
-- Current scope: eligible enemy corpses and severed parts with verified owner links. Blood/bullet/blast decals and general Niagara particles are not retained by this release.
-- World changes, explicit forced destruction and out-of-world cleanup remain allowed. Unassociated parts use the game's normal lifetime.
-- Long sessions, large counts, all enemies/areas, multiplayer and other storefront builds have not been qualified. Retaining more objects can increase resource use; there is no measured frame-rate guarantee.
-- The native watch table has a capacity of 8,192 identities shared by prepared living NPCs, corpses and linked parts. This is an internal capacity, not a separate limb limit. Exceeding it is reported as an error.
-- Session diagnostics are written to disk while active. Detailed material tracing is disabled by default.
-- Mod updates require exiting the game because the native DLL remains loaded in the process.
+- Only eligible NPC corpses and verified owner-linked severed parts are supported. Decals and general particle residue are not implemented.
+- World teardown, forced destruction, out-of-world cleanup and unassociated parts retain game behavior.
+- Large corpse limits can increase resource use; no frame-rate guarantee is made.
+- Native hooks remain in pass-through state during game exit to avoid code patching during teardown. DLL and callback memory remain until the process ends. Manual off restores hooks and performs normal group cleanup.
+- Periodic full reports and periodic state diagnostics are opt-in; event capture still writes session evidence.
+- Other storefront builds and game updates are not qualified. Updating the mod requires a game restart.
