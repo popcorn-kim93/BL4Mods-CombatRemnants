@@ -1,0 +1,78 @@
+name: Mirror release to Nexus Mods
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Published GitHub release tag (for example v0.14.4)
+        required: true
+        type: string
+      dry_run:
+        description: Verify files only; do not contact Nexus or upload
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+
+# Serialize all versions, not just a single tag. Do not cancel an upload in progress.
+concurrency:
+  group: combat-remnants-nexus-release
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out publishing tools from the default branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+
+      - name: Download and verify published release
+        id: prepare
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event.release.tag_name || inputs.tag }}
+          SYNC_ENABLED: ${{ vars.NEXUS_SYNC_ENABLED }}
+          ALLOW_PRERELEASE: ${{ vars.NEXUS_ALLOW_PRERELEASE }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
+        run: python3 .github/scripts/nexus_release.py prepare
+
+      - name: Check Nexus target and existing versions
+        if: steps.prepare.outputs.upload == 'true'
+        id: nexus
+        env:
+          NEXUSMODS_API_KEY: ${{ secrets.NEXUSMODS_API_KEY }}
+          NEXUS_MOD_ID: ${{ vars.NEXUS_MOD_ID }}
+          NEXUS_FILE_ID: ${{ vars.NEXUS_FILE_ID }}
+        run: python3 .github/scripts/nexus_release.py preflight
+
+      - name: Upload the verified ZIP to Nexus
+        if: steps.prepare.outputs.upload == 'true' && steps.nexus.outputs.upload == 'true'
+        id: upload
+        uses: Nexus-Mods/upload-action@98532f7670c27cbecc78fae03fa3e278147827e2
+        with:
+          api_key: ${{ secrets.NEXUSMODS_API_KEY }}
+          file_id: ${{ vars.NEXUS_FILE_ID }}
+          filename: ${{ steps.prepare.outputs.package }}
+          version: ${{ steps.prepare.outputs.version }}
+          display_name: Combat Remnants ${{ steps.prepare.outputs.version }}
+          description: ${{ steps.prepare.outputs.description }}
+          category: main
+          archive_existing_version: 'false'
+          update_mod_version: 'true'
+          # Full mod-page descriptions are deliberately not modified.
+          # Changelog is not appended separately: an interrupted retry could append twice.
+
+      - name: Verify the uploaded Nexus version
+        if: steps.upload.outputs.version_id != ''
+        env:
+          NEXUSMODS_API_KEY: ${{ secrets.NEXUSMODS_API_KEY }}
+          NEXUS_FILE_ID: ${{ vars.NEXUS_FILE_ID }}
+          NEXUS_VERSION_ID: ${{ steps.upload.outputs.version_id }}
+        run: python3 .github/scripts/nexus_release.py verify

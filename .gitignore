@@ -1,8 +1,9 @@
-# This public repository contains documentation and version metadata only.
+# Public documentation, release metadata and publishing automation only.
 *.zip
 *.dll
 *.pdb
 *.py
+!.github/scripts/*.py
 *.pyc
 *.cpp
 *.h
