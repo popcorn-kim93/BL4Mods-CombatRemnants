@@ -8,6 +8,7 @@
 
 1. 이 저장소의 기본 브랜치에 다음 파일을 반영합니다. 이후 새 릴리즈 태그에도 워크플로가 포함되도록 합니다.
    - `.github/workflows/nexus-release.yml`
+   - `.github/workflows/nexus-connection.yml`
    - `.github/scripts/nexus_release.py`
    - `NEXUS_RELEASE.ko.md`
    - `.gitignore`의 배포 스크립트 예외 규칙
@@ -43,6 +44,8 @@ GitHub **Actions → Mirror release to Nexus Mods → Run workflow**에서 공�
 - `SHA256SUMS.txt`
 
 태그, 제품, 저장소, 버전, 배포 채널, 테스트 빌드 표시, ZIP 전체 해시와 내부 파일 해시를 대조합니다. 누락된 파일, 진단용 채널, 잘못된 경로, 중복 ZIP 항목 등은 거절합니다. 이 검증은 인게임 테스트를 대신하지 않습니다.
+
+API 키와 ID를 입력한 뒤에는 **Actions → Check Nexus connection (read only) → Run workflow**를 실행할 수 있습니다. 이 별도 점검은 저장된 키로 Nexus의 모드 파일 목록과 버전 목록만 조회하여 대상 파일이 해당 모드에 속하는지 확인합니다. 업로드 단계가 없으며 `NEXUS_SYNC_ENABLED=false`에서도 사용할 수 있습니다. 조회 성공은 실제 업로드 권한이나 업로드 완료를 증명하지 않습니다.
 
 ## 이후 릴리즈 과정
 

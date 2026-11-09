@@ -208,6 +208,22 @@ def preflight():
     note(reason)
 
 
+def check_connection():
+    """Read only: no release download, no upload and no state change."""
+    file_id, mod_id = identifier("NEXUS_FILE_ID"), identifier("NEXUS_MOD_ID")
+    files = api(f"/mods/{mod_id}/files")["mod_files"]
+    require(any(f.get("id") == file_id for f in files),
+            "Nexus file does not belong to the configured mod.")
+    versions = api(f"/mod-files/{file_id}/versions")["versions"]
+    require(isinstance(versions, list), "Unexpected Nexus version list.")
+    # Only print release version labels, never response bodies or account/key details.
+    labels = [str(v.get("version", ""))[:80] for v in versions]
+    note(f"Nexus read connection succeeded. Mod ID: {mod_id}; file ID: {file_id}. "
+         f"File membership confirmed; {len(versions)} version(s). "
+         f"Version labels: {json.dumps(labels, ensure_ascii=True)}. "
+         "No upload or update was requested. Upload permission was not exercised.")
+
+
 def verify_upload():
     plan = json.loads((WORK / "plan.json").read_text("utf-8"))
     versions = api(f"/mod-files/{identifier('NEXUS_FILE_ID')}/versions")["versions"]
@@ -220,8 +236,9 @@ def verify_upload():
 
 if __name__ == "__main__":
     try:
-        require(len(sys.argv) == 2, "Usage: nexus_release.py prepare|preflight|verify")
-        {"prepare": prepare, "preflight": preflight, "verify": verify_upload}[sys.argv[1]]()
+        require(len(sys.argv) == 2, "Usage: nexus_release.py prepare|preflight|verify|connection")
+        {"prepare": prepare, "preflight": preflight, "verify": verify_upload,
+         "connection": check_connection}[sys.argv[1]]()
     except (ValueError, KeyError, OSError, zipfile.BadZipFile, json.JSONDecodeError) as error:
         print(f"Release sync stopped: {error}", file=sys.stderr)
         sys.exit(1)
