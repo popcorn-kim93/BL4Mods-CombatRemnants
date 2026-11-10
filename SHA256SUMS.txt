@@ -1,2 +1,2 @@
-187e28c3b0215c963a39bc6978da82889ecd4ef349fb4a655c49886ee73940d9  CombatRemnants-0.18.2.zip
-20db50a2b2bce4479027c59b7a390f6b4a923f0073912cc7eceb3bcefc4890bb  release-manifest.json
+165d519a1c2830abe6d9ddde93add69867ba0f85edc34cf22a8ee08a1fbca510  CombatRemnants-0.18.3.zip
+c0eeb786d0fd4dbf41f83360cda0d6aae87c29bf15d708a13d159449f7761d32  release-manifest.json

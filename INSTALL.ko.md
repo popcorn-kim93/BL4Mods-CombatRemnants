@@ -1,4 +1,4 @@
-# Combat Remnants 0.18.2 설치·사용 안내
+# Combat Remnants 0.18.3 설치·사용 안내
 
 시체와 연결 절단 부위, 확인된 탄흔·핏자국·폭발 자국을 남깁니다. 일반 파티클 잔해는 아직 지원하지 않습니다.
 
@@ -6,7 +6,7 @@
 
 1. Windows x64용 보더랜드 4와 [Borderlands 4 Python SDK](https://bl-sdk.github.io/oak2-mod-db/)가 필요합니다. [호환성](COMPATIBILITY.md)을 확인하세요.
 2. 게임을 완전히 종료합니다. DLL과 이미 불러온 Python 코드는 새 게임 프로세스에서 적용됩니다.
-3. 공개 후 [Releases](https://github.com/popcorn-kim93/BL4Mods-CombatRemnants/releases)의 **CombatRemnants-0.18.2.zip**을 받습니다. Source code 압축 파일은 설치 파일이 아닙니다.
+3. [Releases](https://github.com/popcorn-kim93/BL4Mods-CombatRemnants/releases)의 **CombatRemnants-0.18.3.zip**을 받습니다. Source code 압축 파일은 설치 파일이 아닙니다.
 4. 기존 `sdk_mods/bl4_persistent_effects` 폴더를 `sdk_mods` 밖에 백업한 뒤 교체합니다. 예전 별도 `bl4_persistence_probe` 폴더도 밖으로 옮깁니다. 기존 `sdk_mods/settings/bl4_persistent_effects.json`은 보존하세요. 모드 관리자가 배포한 파일은 해당 관리자로 배포 해제 후 수동 교체하세요.
 5. ZIP 안의 `bl4_persistent_effects` 폴더를 게임의 `sdk_mods` 바로 아래에 넣습니다.
 
@@ -15,7 +15,7 @@ Borderlands 4/sdk_mods/bl4_persistent_effects/__init__.py
 Borderlands 4/sdk_mods/bl4_persistent_effects/_native/BL4RemovalTrace-abi12.dll
 ```
 
-6. SDK 메뉴의 **BL4 Persistent Combat Effects (Experimental)**를 활성화합니다. 현재 게임 안의 Combat Remnants 이름입니다. 플레이어가 준비되면 자동 시작하므로 일반 사용에는 on 명령이 필요 없습니다.
+6. 설정 파일이 없는 최초 설치는 **BL4 Persistent Combat Effects (Experimental)**가 자동 활성화됩니다. 기존에 꺼 둔 상태는 유지하므로 그 경우 SDK 메뉴에서 켜 주세요. 현재 게임 안의 Combat Remnants 이름입니다. 플레이어가 준비되면 자동 시작하며, 월드 안에서 켜도 별도 on 명령이 필요 없습니다.
 
 최상위 문서는 설치하지 않아도 됩니다. 수동 설치 기준이며 Vortex 배포는 별도 검증되지 않았습니다.
 

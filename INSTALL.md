@@ -1,10 +1,10 @@
-# Combat Remnants 0.18.2 installation and usage
+# Combat Remnants 0.18.3 installation and usage
 
 ## Install or update
 
 1. Install the [Borderlands 4 Python SDK](https://bl-sdk.github.io/oak2-mod-db/) for Windows x64. Check [compatibility](COMPATIBILITY.md).
 2. Close the game completely. The native DLL and loaded Python code require a new game process for updates.
-3. Use **CombatRemnants-0.18.2.zip** from [Releases](https://github.com/popcorn-kim93/BL4Mods-CombatRemnants/releases) when published, not a Source code archive.
+3. Use **CombatRemnants-0.18.3.zip** from [Releases](https://github.com/popcorn-kim93/BL4Mods-CombatRemnants/releases), not a Source code archive.
 4. Back up the old `sdk_mods/bl4_persistent_effects` folder outside `sdk_mods`, then replace it. Move any old separate `bl4_persistence_probe` folder outside too. Preserve `sdk_mods/settings/bl4_persistent_effects.json`. If a mod manager owns these files, undeploy through that manager before manual replacement.
 5. Copy the ZIP's `bl4_persistent_effects` folder directly into the game's `sdk_mods` folder.
 
@@ -13,7 +13,7 @@ Borderlands 4/sdk_mods/bl4_persistent_effects/__init__.py
 Borderlands 4/sdk_mods/bl4_persistent_effects/_native/BL4RemovalTrace-abi12.dll
 ```
 
-6. Enable **BL4 Persistent Combat Effects (Experimental)** in the SDK menu. Retention starts automatically when the player is ready.
+6. Fresh installations without a settings file enable **BL4 Persistent Combat Effects (Experimental)** automatically. Existing saved disabled choices are respected; enable it in the SDK menu if previously disabled. Retention starts when the player is ready, including when enabled during play. No console start command is required.
 
 Top-level documents do not need installation. Manual installation is the qualified method; Vortex deployment has not been separately qualified.
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.18.3 — startup hotfix
+
+- Fix retention waiting indefinitely when the mod is enabled after entering the world. Defer startup on the game window owner thread without requiring a new restart/tick event.
+- Automatically enable on a genuinely fresh installation with no settings file; preserve saved disabled choices and existing options.
+- Preserve loading-time event bootstrap, duplicate-start guards and shutdown cleanup. No new periodic scans; native DLL unchanged from 0.18.2.
+
 ## v0.18.2 — original decal retention and Korean/English menus
 
 - Add independent bullet, blood and blast lifetime/count settings, using original pooled components and same-category FIFO replacement.

@@ -1,20 +1,20 @@
 {
   "name": "Combat Remnants",
-  "version": "0.18.2",
+  "version": "0.18.3",
   "channel": "alpha",
   "repository": "https://github.com/popcorn-kim93/BL4Mods-CombatRemnants",
   "runtime_folder": "bl4_persistent_effects",
   "runtime_file_count": 37,
   "runtime_matches_tested_build": true,
   "sha256": {
-    "CHANGELOG.md": "edb97ebd0dc4b320c423bfbe3adc00c41ae85b0b899bddab06e74b4219738e7e",
-    "COMPATIBILITY.md": "c7d56cf6993a7c1ce9832e50de7acb6ad03bcc67bf95e4894c3e70ac2aa5a8d7",
-    "INSTALL.ko.md": "b03e26c757dec241df80ed8a11c2ed7ea4fd228dd373f5bb400192e80c8e26db",
-    "INSTALL.md": "bb4f1d4c04c4ef75d2dae7030753804fbae5e6229d3ce0c919b36af3a0d97082",
+    "CHANGELOG.md": "a0b2db8853ccc237b3ced428929f4f54bfd57c8b8ff81416b6089c25402e48e7",
+    "COMPATIBILITY.md": "4371133fc282364541b7aa5db549ccbb9380d5eeb48b485975a2c0d7038769ec",
+    "INSTALL.ko.md": "ce5630089d2508840d2e6ac8be91e817d3938f3083c8516377d181e86900faa0",
+    "INSTALL.md": "d317f9832fa48a7fb1716182b5a5056f2b474eb016563702af84337de391928d",
     "LICENSE-Minhook.txt": "4f21f857550d7be854da6ea5f2da4e6775ca4e3fbb535e4f3d961c47d0bf3335",
-    "README.md": "b23543cc6ececfe8cf0a1d36bf0abe85477e7c9a2dddc0ddb7ee72d3a216e72e",
+    "README.md": "dafc4357e10f5d2a46e7d2eb28877ea704538a08943d861cd6beb9df8e82f4af",
     "THIRD_PARTY_NOTICES.md": "ba9c7c071d747e25c59379c69194ce8ecc090b1240414e7af305b5fcaddd881f",
-    "bl4_persistent_effects/__init__.py": "03c4a10f5c3398676fe8820c13735d3af488200d9bc763e0507aaf1332fbce4f",
+    "bl4_persistent_effects/__init__.py": "0b3e2e6a99152b6cb836e8f9f5291e0b3da3fbed7d5e5c675ce69f12611c3633",
     "bl4_persistent_effects/_native/BL4RemovalTrace-abi12.dll": "d7927b5a624d751b6f55b7dcff1bfaeacc49e90081e41c595e5c2eba6eb84bb9",
     "bl4_persistent_effects/_native/LICENSE-Minhook.txt": "4f21f857550d7be854da6ea5f2da4e6775ca4e3fbb535e4f3d961c47d0bf3335",
     "bl4_persistent_effects/abi.py": "909e5aec93f81b28a330efe8292c2f1ada9131a52f7b51512f9bde467fdd524c",
@@ -49,14 +49,14 @@
     "bl4_persistent_effects/retention.py": "a756ec4c86ff09027633720b4a40ca488d588212ff0f86cd0dc1b174b0bb2234",
     "bl4_persistent_effects/shot_trace.py": "9adb0ec78e233020d19fdd3ba139d554a65719bfb4d30cd1d751b279b778088d",
     "bl4_persistent_effects/shutdown.py": "9db36a58db6d4406be43240849157f7759ed4a9f62766167aa938a3c2e7e1622",
-    "bl4_persistent_effects/startup.py": "4e6cf14de46af9b8620d6b0b41bd23f37f92a0878c6e2ac84e136f6be261ebb2",
+    "bl4_persistent_effects/startup.py": "e9303a9af8d1ae3f44648847dd63b2362de03483378f615250217c9e1ac96da0",
     "bl4_persistent_effects/visual_probe.py": "7ffadc027b3255b49c59b5ae55e172b85f8af5b89a1155704d3b272b7815aeee"
   },
-  "tag": "v0.18.2",
+  "tag": "v0.18.3",
   "package": {
-    "name": "CombatRemnants-0.18.2.zip",
-    "bytes": 248506,
-    "sha256": "187e28c3b0215c963a39bc6978da82889ecd4ef349fb4a655c49886ee73940d9"
+    "name": "CombatRemnants-0.18.3.zip",
+    "bytes": 248646,
+    "sha256": "165d519a1c2830abe6d9ddde93add69867ba0f85edc34cf22a8ee08a1fbca510"
   },
   "tested_game": {
     "platform": "Windows x64",
