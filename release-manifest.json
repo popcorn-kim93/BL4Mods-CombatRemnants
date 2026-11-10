@@ -1,26 +1,32 @@
 {
   "name": "Combat Remnants",
-  "version": "0.14.4",
+  "version": "0.18.2",
   "channel": "alpha",
   "repository": "https://github.com/popcorn-kim93/BL4Mods-CombatRemnants",
   "runtime_folder": "bl4_persistent_effects",
-  "runtime_file_count": 29,
+  "runtime_file_count": 37,
   "runtime_matches_tested_build": true,
   "sha256": {
-    "CHANGELOG.md": "21b7fb8ede687fc53612d82529bd0a0613d192c9ec1587780e3e2ce3baeff737",
-    "COMPATIBILITY.md": "03ecf02c2704f1f71f812f1f7e7432e322a58f80be27fd5663344dce78158dff",
-    "INSTALL.ko.md": "52b01eafd097853a7225dcfe81e36008198a01bdf810c17d210a533a55b34edd",
-    "INSTALL.md": "6433452a0f8a5548af90ffa2c35af8280f2d515305f9d9644e8a9f34cd9102de",
+    "CHANGELOG.md": "edb97ebd0dc4b320c423bfbe3adc00c41ae85b0b899bddab06e74b4219738e7e",
+    "COMPATIBILITY.md": "c7d56cf6993a7c1ce9832e50de7acb6ad03bcc67bf95e4894c3e70ac2aa5a8d7",
+    "INSTALL.ko.md": "b03e26c757dec241df80ed8a11c2ed7ea4fd228dd373f5bb400192e80c8e26db",
+    "INSTALL.md": "bb4f1d4c04c4ef75d2dae7030753804fbae5e6229d3ce0c919b36af3a0d97082",
     "LICENSE-Minhook.txt": "4f21f857550d7be854da6ea5f2da4e6775ca4e3fbb535e4f3d961c47d0bf3335",
-    "README.md": "35a848cec71434db77d1026f792738092c573622c98ba1981ddaa08dac3e4404",
-    "THIRD_PARTY_NOTICES.md": "7b189de9b7bd87645eff836f3ac51418849637aaf0e9ff06b18f518c76464c6b",
-    "bl4_persistent_effects/__init__.py": "5d6ec245b12cbdbad547601e20fee9d4e1fdda00897946bbf7737646bc9f41dd",
-    "bl4_persistent_effects/_native/BL4RemovalTrace-abi11.dll": "952de39144b4dac078450b94df21a387d43cd86aa43a431f43a07ccfbf6d98c8",
+    "README.md": "b23543cc6ececfe8cf0a1d36bf0abe85477e7c9a2dddc0ddb7ee72d3a216e72e",
+    "THIRD_PARTY_NOTICES.md": "ba9c7c071d747e25c59379c69194ce8ecc090b1240414e7af305b5fcaddd881f",
+    "bl4_persistent_effects/__init__.py": "03c4a10f5c3398676fe8820c13735d3af488200d9bc763e0507aaf1332fbce4f",
+    "bl4_persistent_effects/_native/BL4RemovalTrace-abi12.dll": "d7927b5a624d751b6f55b7dcff1bfaeacc49e90081e41c595e5c2eba6eb84bb9",
     "bl4_persistent_effects/_native/LICENSE-Minhook.txt": "4f21f857550d7be854da6ea5f2da4e6775ca4e3fbb535e4f3d961c47d0bf3335",
     "bl4_persistent_effects/abi.py": "909e5aec93f81b28a330efe8292c2f1ada9131a52f7b51512f9bde467fdd524c",
     "bl4_persistent_effects/corpse_groups.py": "5dbde21bb758bcc38f206cce55bb693395a4c193eca937a30424faa3983cf627",
     "bl4_persistent_effects/death_evidence.py": "8565656f84f8db788da85dda30c59b78da41364bfad4605f6668d29228de3327",
     "bl4_persistent_effects/death_trace.py": "f81141786e36bd0e05698bf6bf874967aa9ab63fdc58e7da1eb8fe8696c75a31",
+    "bl4_persistent_effects/decal_allowlist.py": "782336a7b3c70a24af60819797a06f16850d594175b817421f271039fbf81482",
+    "bl4_persistent_effects/decal_legacy.py": "a9ea36b4bd68c8f1b93d87f0948d3feb1e0dc8aa146f6bc1358e1160e7caf062",
+    "bl4_persistent_effects/decal_pool_trace.py": "a557c223826dd27bb3356c76273d667ca5bec607c2b365905a7132348a0cbc2d",
+    "bl4_persistent_effects/decal_retention.py": "7139630079200673bb25842de0ed22b46191d39c624fb885e7e48fd6a46d6108",
+    "bl4_persistent_effects/decal_settings.py": "d82025ccdfcd07a5d5475ac8ec2f75c171d754ddbdba9ebc2ef3f8e7fbe48ff1",
+    "bl4_persistent_effects/decal_trace.py": "fa1568ef9ec27f1a3cee4645fb2ce2d04a67bd872c2a22dc26b780cb7749f479",
     "bl4_persistent_effects/diagnostics/__init__.py": "9de850dd68fa183cec372a9eb304b96718ec263117296a2fa5b87b6b68a1dbe6",
     "bl4_persistent_effects/diagnostics/frame_timer.py": "e160e94bb1bc2f184e800749863ea7c53f1279465d13676835b83a4bd8e6472d",
     "bl4_persistent_effects/diagnostics/limits.py": "9ac5ee02b1fc8b70331a21679f671b994f10a62469b74454ce55818114bb0fb3",
@@ -31,24 +37,26 @@
     "bl4_persistent_effects/frame_timer.py": "25b116608387ba7d56d4a01cad1abd8dea698c7d4f2e4de5ffd9d49765a39aee",
     "bl4_persistent_effects/group_probe.py": "3e7d4a231c3c103c4e6f305f785829538597386188d1d3d38800469a22c29a46",
     "bl4_persistent_effects/lifecycle.py": "0aa4b0d85a96c0f74240c3e511e64a3de67cc216730cda84f18de1d25793518f",
+    "bl4_persistent_effects/localization.py": "8df79ada5437ecc03914770002b85842c26761c5a2f8cf000905752a03975322",
     "bl4_persistent_effects/material_trace.py": "e4cb49ad374a20d2e2e0ba77cb4804f77a5b643f6526cf30b22c7a19e2079da7",
     "bl4_persistent_effects/native_state.py": "18c6cffd76b5cb557dce1b464a346a8b3c9991e1d220874bf80bdf173b02e445",
     "bl4_persistent_effects/npc_policy.py": "ee02c57966cf9219606423f0ac20e2882d1a64a224758ff6760a52534cca80ff",
     "bl4_persistent_effects/rank_probe.py": "735b15b0b081b2ca0f9aa02613c87799dc3588e6b0a82960d53ab3d60c95926c",
     "bl4_persistent_effects/removal_abi.py": "3d9d994ea233f81e4cbde2b74aeb12b77203e81cc9fe729fedd6cda51fe2016e",
-    "bl4_persistent_effects/removal_trace.py": "84eea2281087eefd1f435264bb502862ea9ddaa427bfe734815e7967e34e9925",
+    "bl4_persistent_effects/removal_trace.py": "f3cbff5a8a396a2bbaba8337963177c95f710a4b83533481e8459051bad34ea2",
     "bl4_persistent_effects/reporting.py": "cb8908b217412e0b84ad2ccc91e061e06827e7c50a873cf42a532c3fc449657c",
     "bl4_persistent_effects/resource_probe.py": "83a31e187bd38ed8e38d5356ccfec5618d55a220d18a2730fdb8de74dea5f74f",
     "bl4_persistent_effects/retention.py": "a756ec4c86ff09027633720b4a40ca488d588212ff0f86cd0dc1b174b0bb2234",
+    "bl4_persistent_effects/shot_trace.py": "9adb0ec78e233020d19fdd3ba139d554a65719bfb4d30cd1d751b279b778088d",
     "bl4_persistent_effects/shutdown.py": "9db36a58db6d4406be43240849157f7759ed4a9f62766167aa938a3c2e7e1622",
     "bl4_persistent_effects/startup.py": "4e6cf14de46af9b8620d6b0b41bd23f37f92a0878c6e2ac84e136f6be261ebb2",
     "bl4_persistent_effects/visual_probe.py": "7ffadc027b3255b49c59b5ae55e172b85f8af5b89a1155704d3b272b7815aeee"
   },
-  "tag": "v0.14.4",
+  "tag": "v0.18.2",
   "package": {
-    "name": "CombatRemnants-0.14.4.zip",
-    "bytes": 192506,
-    "sha256": "e114c56387e65b5f96e1f975f11157b10c17ef210d6d518fb4a3cb62abc522af"
+    "name": "CombatRemnants-0.18.2.zip",
+    "bytes": 248506,
+    "sha256": "187e28c3b0215c963a39bc6978da82889ecd4ef349fb4a655c49886ee73940d9"
   },
   "tested_game": {
     "platform": "Windows x64",
@@ -59,10 +67,30 @@
   },
   "scope": [
     "eligible NPC corpses",
-    "verified owner-linked severed parts"
+    "verified owner-linked severed parts",
+    "allowlisted bullet, blood and blast decals with independent original-pool FIFO"
   ],
+  "languages": [
+    "en",
+    "ko"
+  ],
+  "language_selection": "game language automatically, with manual English/Korean override",
+  "decal_defaults": {
+    "bullet": {
+      "maximum": 512,
+      "seconds": 0
+    },
+    "blood": {
+      "maximum": 128,
+      "seconds": 0
+    },
+    "blast": {
+      "maximum": 64,
+      "seconds": 0
+    }
+  },
   "not_implemented": [
-    "decals",
-    "general particle residue"
+    "general particle residue",
+    "Niagara renderer decal retention"
   ]
 }

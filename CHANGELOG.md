@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.18.2 — original decal retention and Korean/English menus
+
+- Add independent bullet, blood and blast lifetime/count settings, using original pooled components and same-category FIFO replacement.
+- Defaults: unlimited lifetimes (0 seconds), bullet 512, blood 128, blast 64. Existing saved choices are preserved.
+- Restrict retention to verified materials; preserve game behavior for damage areas, puddles and unknown effects. Protect retained originals from unrelated pool reuse and exclude them from the supported overlap suppression gate.
+- Clear tracked decals on world changes without periodic global scans. Add opt-in shot/impact/decal-path diagnostics.
+- Add automatic game-language selection and manual Korean/English override for menu labels, descriptions, choices and status, without changing saved gameplay settings.
+- Keep existing automatic corpse retention, boss-first policy and elemental death choices. General particle residue is still outside scope.
+- See compatibility for local checks, gameplay evidence and outstanding limits.
+
 ## 0.14.4 — Alpha — 2026-11-09
 
 - Default settings: automatic start, boss retention enabled, elemental deaths dissolve slowly over 30 seconds.

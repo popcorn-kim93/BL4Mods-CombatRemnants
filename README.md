@@ -2,50 +2,42 @@
 
 **The fight ends. The traces remain. / 전투가 끝나도, 흔적은 남는다.**
 
-Combat Remnants preserves eligible enemy corpses and their linked severed parts as one group, with a configurable corpse limit.
+**v0.18.2 — Alpha**
 
-**Current release: v0.14.4 — Alpha**
+![Combat Remnants promotional cover](media/CombatRemnants-promo-en.png)
 
-[Download v0.14.4](https://github.com/popcorn-kim93/BL4Mods-CombatRemnants/releases/tag/v0.14.4) · [Installation & usage](INSTALL.md) · [한국어 설치·사용 안내](INSTALL.ko.md) · [Changelog](CHANGELOG.md)
+Preserve eligible enemy corpses and their linked severed parts, plus confirmed bullet, blood and blast decals. Each decal category has its own lifetime and FIFO count limit. Korean and English menus follow the game language, with a manual override.
 
-Download **CombatRemnants-0.14.4.zip** from Releases. GitHub's automatic Source code archives contain documentation, not the installable mod.
+[Downloads](https://github.com/popcorn-kim93/BL4Mods-CombatRemnants/releases) · [English installation](INSTALL.md) · [한국어 설치·사용 안내](INSTALL.ko.md) · [Changelog](CHANGELOG.md)
 
-## Features
+Choose **CombatRemnants-0.18.2.zip** from the v0.18.2 release. GitHub's Source code archives contain public documentation, not the installable mod.
 
-- Starts automatically when enabled and a player is ready.
-- Keeps eligible corpses and owner-linked parts together; releases the oldest group when the corpse limit is exceeded.
-- Allows boss retention to be turned on or off, before evaluating elemental policy.
-- Offers keep indefinitely, dissolve slowly, or game-default elemental-death modes. Slow dissolve duration is configurable from 1 to 600 seconds.
-- Preserves normal body hiding when a body is replaced by Gib fragments.
-- Uses event-driven NPC/death/part discovery, with one initial live-NPC query per map. Periodic state diagnostics and full reports are opt-in.
-- Releases protection, timers and SDK callbacks on menu exit while preserving the original exit state machine.
+## Features and defaults
 
-The count is a retention ceiling, not a target spawn count. Parts have no separate limit. World teardown, forced destruction, out-of-world cleanup and unassociated parts retain game behavior. Remnants are not saved across sessions.
+- Starts automatically when enabled and the player is ready.
+- Keeps eligible corpses and owner-linked severed parts as one group. Default corpse limit: 50. Oldest groups are released at the limit; parts have no separate cap.
+- Boss retention defaults to on and is evaluated before elemental-death policy. Elemental deaths can stay indefinitely, fade slowly (default: 30 seconds), or use game cleanup.
+- Retains original pooled decals without creating copies or hiding the originals. At a category's cap, its oldest mark is reused for the new mark; other categories keep their own budgets.
+- Protected marks do not suppress new marks through the supported overlap gate. Unmanaged effects keep game timers and selection rules, with protected originals excluded from reuse.
+- Clears decal tracking when changing worlds. Ordinary same-world fast travel is not necessarily a world change. Remnants are not saved across sessions.
+- English/Korean option labels, descriptions, choices and mod status. Auto uses Korean for a Korean game language and English otherwise. Language changes preserve gameplay settings.
+
+| Decal | Default maximum | Default lifetime |
+| --- | ---: | --- |
+| Bullet marks | 512 | 0 seconds — unlimited |
+| Blood marks | 128 | 0 seconds — unlimited |
+| Blast marks | 64 | 0 seconds — unlimited |
+
+Saved settings take precedence over defaults. Count limits do not create extra objects. Lifetime 0 means no timed removal; maximum count 0 instead disables retention for that category and clears its retained originals.
 
 ## Quick start
 
-Install the [Borderlands 4 Python SDK](https://bl-sdk.github.io/oak2-mod-db/), put the package's `bl4_persistent_effects` folder inside `sdk_mods`, and enable **BL4 Persistent Combat Effects (Experimental)** in the SDK menu. This is Combat Remnants' current in-game name.
+Install the [Borderlands 4 Python SDK](https://bl-sdk.github.io/oak2-mod-db/), copy the ZIP's `bl4_persistent_effects` folder into `sdk_mods`, and enable **BL4 Persistent Combat Effects (Experimental)**. This is the retained in-game name of Combat Remnants. No start command is needed for normal use.
 
-Retention starts automatically. Options: corpse limit (default 50), boss retention (default on), elemental behavior (default slow dissolve), and slow dissolve duration (default 30 seconds). Existing saved settings take precedence.
+Damage areas, puddles, warning markers, unconfirmed materials and general particle residue are outside decal retention. Game rules that disallow decals on a target remain in effect. Dust, ash, ice and Niagara-rendered residue are not generally retained by this release.
 
-Optional commands:
+## Validation and source
 
-```text
-bl4_corpses_status
-bl4_corpses_off
-bl4_corpses_on --max-corpses 100
-```
+Local runtime regression checks include language switching and preservation of saved settings. Recent gameplay logs show independent category limits, FIFO reuse after reaching caps, unlimited lifetimes and world reset. These records do not establish that every mark was visible or guarantee frame rate. Finite decal lifetimes, mixed managed/unmanaged pool competition, long sessions and multiplayer still need broader gameplay coverage. See [compatibility and validation](COMPATIBILITY.md).
 
-`off` stops the current session and returns groups to cleanup. `on` starts it again. You do not need to run off before exiting.
-
-## Scope and validation
-
-Supported: corpses and verified owner-linked severed parts. **Blood/bullet/blast decals and general particles such as dust, ash and ice residue are not implemented.**
-
-25 local checks passed. A v0.14.3 game session with the same native DLL confirmed automatic start and menu-exit cleanup of protection, timers, SDK callbacks and recording workers; the game exited with code 0. This does not qualify all enemies, long sessions, multiplayer or performance at large limits. See [validation](COMPATIBILITY.md).
-
-## Downloads and source management
-
-This public repository contains documentation and release metadata. Development source is maintained in Perforce. Release packages contain runtime Python modules, the native DLL and third-party notices, without the C++ development project, research captures or game assets.
-
-See [reporting a problem](INSTALL.md#reporting-a-problem) and [third-party notices](THIRD_PARTY_NOTICES.md).
+Development source is maintained in Perforce. This repository holds release documentation, metadata and publishing automation. Packages include required Python modules, a native DLL and [third-party notices](THIRD_PARTY_NOTICES.md); no game assets or SDK are bundled.
